@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuis Seru Penutup: Hak dan Kewajiban</title>
+<style>
+:root{--bg:#f6f4ff;--card:#fff;--tx:#1d2233;--mu:#5d6580;--bd:#dcd8f0;--pri:#6c47ff;--pril:#ece7ff;--ok:#169c5e;--okl:#dcf5e8;--bad:#d63b3b;--badl:#fde4e4;--gold:#f5a623;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121320;--card:#1c1e30;--tx:#eef0fa;--mu:#a4abc4;--bd:#33365a;--pril:#2a2552;--okl:#0f3a28;--badl:#4a1e1e}}
+:root[data-theme="dark"]{--bg:#121320;--card:#1c1e30;--tx:#eef0fa;--mu:#a4abc4;--bd:#33365a;--pril:#2a2552;--okl:#0f3a28;--badl:#4a1e1e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:14px}
+h1{margin:.1em 0;font-size:1.5rem}h2{margin:.2em 0 .6em;font-size:1.15rem}
+.mu{color:var(--mu)}
+.top{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:8px}
+.bar{height:10px;background:var(--pril);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;width:0;background:var(--pri);transition:width .3s}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--pril);color:var(--pri);margin-bottom:8px}
+.q{font-size:1.15rem;font-weight:700;margin:4px 0 14px}
+.o{display:block;width:100%;text-align:left;padding:13px;margin-bottom:9px;border:2px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font-size:1rem;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--pri)}
+.o.ok{border-color:var(--ok);background:var(--okl)}
+.o.no{border-color:var(--bad);background:var(--badl)}
+.fb{margin-top:6px;padding:12px;border-radius:12px;font-size:.97rem}
+.fb.ok{background:var(--okl)}.fb.no{background:var(--badl)}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;background:var(--pri);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:12px}
+.btn.alt{background:var(--mu)}
+.big{font-size:3.4rem;text-align:center;margin:0}
+.c{text-align:center}
+textarea{width:100%;min-height:62px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:4px 0 10px}
+label{font-weight:600;font-size:.95rem}
+.hide{display:none}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.pop{animation:pop .35s}
+</style>
+</head>
+<body>
+<main>
+<section id="s0" class="card c">
+<p class="big">🏆</p>
+<h1>Kuis Seru Penutup</h1>
+<p class="mu">Seberapa paham kamu tentang hak dan kewajiban? 8 pertanyaan singkat, jawab sebaik mungkin. Kumpulkan bintang dan raih lencanamu!</p>
+<button class="btn" id="go">Mulai Kuis</button>
+</section>
+
+<section id="s1" class="hide">
+<div class="top"><span id="no">1/8</span><span id="st"></span><span id="sc">⭐ 0</span></div>
+<div class="bar"><i id="pb"></i></div>
+<div class="card">
+<span class="tag" id="tg"></span>
+<div class="q" id="qq"></div>
+<div id="os"></div>
+<div id="fb"></div>
+<button class="btn hide" id="nx">Lanjut</button>
+</div>
+</section>
+
+<section id="s2" class="hide">
+<div class="card c">
+<p class="big pop" id="bd"></p>
+<h1 id="bt"></h1>
+<p class="mu" id="bs"></p>
+</div>
+<div class="card">
+<h2>Refleksi: tulis dengan jujurmu</h2>
+<label for="r1">Satu hal baru yang kupelajari tentang hak dan kewajiban:</label>
+<textarea id="r1"></textarea>
+<label for="r2">Kebiasaan disiplin yang akan kulakukan mulai besok:</label>
+<textarea id="r2"></textarea>
+<label for="r3">Hak temanku yang akan lebih kujaga:</label>
+<textarea id="r3"></textarea>
+<button class="btn" id="fin">Simpan Refleksiku</button>
+<div class="fb ok hide" id="done"></div>
+<button class="btn alt" id="again">Main Lagi</button>
+</div>
+</section>
+</main>
+<script>
+var Q=[
+{t:"Hak atau Kewajiban?",q:"“Datang ke sekolah tepat waktu” termasuk...",o:["Kewajiban","Hak"],a:0,e:"Datang tepat waktu adalah tugas yang harus kita lakukan, jadi ini kewajiban."},
+{t:"Hak atau Kewajiban?",q:"“Mendapat bimbingan dari guru dan orang tua” termasuk...",o:["Kewajiban","Hak"],a:1,e:"Bimbingan adalah sesuatu yang berhak kita terima, jadi ini hak."},
+{t:"Cerita Singkat",q:"Ani berhak belajar dengan tenang. Apa kewajiban teman-temannya?",o:["Tidak ribut saat pelajaran","Mengobrol asal pelan-pelan","Meminta Ani pindah tempat duduk"],a:0,e:"Hak Ani terjaga kalau teman-temannya menjalankan kewajiban untuk tidak mengganggu."},
+{t:"Cerita Singkat",q:"Budi melihat sampah di lantai kelas. Apa yang paling tepat?",o:["Menunggu petugas kebersihan","Memungut dan membuangnya ke tempat sampah","Menyuruh teman lain membuangnya"],a:1,e:"Kita berhak atas kelas bersih, dan kita juga wajib ikut menjaganya."},
+{t:"Hak atau Kewajiban?",q:"“Dihargai saat sudah berusaha tertib” termasuk...",o:["Kewajiban","Hak"],a:1,e:"Dihargai atas usaha adalah hak. Kewajibannya: kita juga menghargai usaha orang lain."},
+{t:"Berpikir Dulu",q:"Kalau satu orang saja tidak disiplin, apa yang paling mungkin terjadi?",o:["Tidak ada pengaruh ke siapa pun","Hak teman-teman lain bisa ikut terganggu","Semua jadi lebih santai dan senang"],a:1,e:"Disiplin itu urusan bersama. Satu orang yang lalai bisa mengganggu hak orang lain."},
+{t:"Contoh Nyata",q:"Mana contoh disiplin di rumah yang paling tepat?",o:["Belajar kalau sedang disuruh","Mengerjakan PR kalau ada waktu luang","Membuat jadwal belajar dan mengikutinya"],a:2,e:"Disiplin berarti teratur dan konsisten, bukan menunggu disuruh."},
+{t:"Kesimpulan",q:"Bagaimana hubungan hak dan kewajiban?",o:["Hak lebih penting dari kewajiban","Saling berkaitan dan harus seimbang","Kewajiban hanya untuk orang dewasa"],a:1,e:"Hak dan kewajiban berjalan bersama. Kita menerima hak dan menjalankan kewajiban."}
+];
+var $=function(i){return document.getElementById(i)};
+var i=0,score=0,right=0,streak=0,lock=false;
+function show(id){["s0","s1","s2"].forEach(function(s){$(s).className=s==id?"":"hide"})}
+function shuf(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t}return a}
+function start(){i=0;score=0;right=0;streak=0;show("s1");load()}
+function load(){
+ var q=Q[i];lock=false;$("no").textContent=(i+1)+"/"+Q.length;$("pb").style.width=(i/Q.length*100)+"%";
+ $("sc").textContent="⭐ "+score;$("st").textContent=streak>=2?"🔥 "+streak+" beruntun":"";
+ $("tg").textContent=q.t;$("qq").textContent=q.q;$("fb").innerHTML="";$("nx").className="btn hide";
+ $("nx").textContent=i==Q.length-1?"Lihat Hasil":"Lanjut";
+ var box=$("os");box.innerHTML="";
+ var idx=q.o.map(function(_,k){return k});if(q.o.length>2)idx=shuf(idx);
+ idx.forEach(function(k){var b=document.createElement("button");b.className="o";b.textContent=q.o[k];b.onclick=function(){pick(b,k)};b.setAttribute("data-k",k);box.appendChild(b)});
+}
+function pick(b,k){
+ if(lock)return;lock=true;var q=Q[i],good=k==q.a;
+ [].forEach.call($("os").children,function(c){c.disabled=true;if(+c.getAttribute("data-k")==q.a)c.className="o ok"});
+ if(good){right++;streak++;score+=10+(streak>=3?5:0)}else{streak=0;b.className="o no"}
+ $("sc").textContent="⭐ "+score;$("st").textContent=streak>=2?"🔥 "+streak+" beruntun":"";
+ $("fb").innerHTML="<div class='fb "+(good?"ok":"no")+" pop'><b>"+(good?"Tepat! 🎉":"Belum tepat 🤔")+"</b> "+q.e+"</div>";
+ $("nx").className="btn";
+}
+$("nx").onclick=function(){i++;if(i<Q.length)load();else end()};
+function end(){
+ show("s2");$("pb").style.width="100%";
+ var b=right>=7?["🌟","Bintang Disiplin"]:right>=5?["🥇","Pejuang Disiplin"]:["🌱","Calon Anak Disiplin"];
+ $("bd").textContent=b[0];$("bt").textContent=b[1];
+ $("bs").textContent="Benar "+right+" dari "+Q.length+" soal, total "+score+" bintang."+(right<5?" Yuk ulangi, kamu pasti bisa lebih baik!":"");
+ $("done").className="fb ok hide";["r1","r2","r3"].forEach(function(r){$(r).value=""});
+ window.scrollTo(0,0);
+}
+$("fin").onclick=function(){var d=$("done");d.className="fb ok";d.textContent="Terima kasih sudah jujur pada dirimu sendiri. Tunjukkan refleksimu ke gurumu atau ceritakan ke teman kelompok!"};
+$("go").onclick=start;$("again").onclick=start;
+</script>
+</body>
+</html>
